@@ -9,19 +9,38 @@
 }
 
 /* Header & Navigation */
+/* Desktop header (full width) */
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* same height/padding as before */
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 5%;
-  position: fixed;
-  top: 0;
-  width: 90%;
   z-index: 1000;
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(5px);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
+
+/* Mobile view: bring in the right side */
+@media (max-width: 768px) {
+  .header {
+    width: calc(100% - 100px); /* Adjust as needed */
+    left: 0;
+    /* 
+      We keep the same height & padding. 
+      This ensures the header's vertical size is unchanged,
+      but it doesn't stretch all the way to the right edge.
+    */
+  }
+}
+
+
+
 
 .logo {
   font-size: 1.8rem;
@@ -62,21 +81,86 @@
   width: 100%;
 }
 
+/* Mobile Navigation */
+.mobileMenuIcon {
+  display: none;
+  font-size: 2rem;
+  color: #2d3748;
+  cursor: pointer;
+  z-index: 1600;
+}
+
+/* Mobile menu now starts at 100px from the top */
+/* Mobile Navigation */
+.mobileMenuIcon {
+  display: none;
+  font-size: 2rem;
+  color: #2d3748;
+  cursor: pointer;
+  z-index: 1600;
+}
+
+/* Mobile menu now starts at 100px from the top with a solid background */
+.mobileMenu {
+  position: fixed;
+  top: 100px; /* Adjust if needed */
+  right: -100%; /* Hidden off-screen by default */
+  width: 80%;
+  height: calc(100% - 100px); /* Adjust height so it doesn't cover the header */
+  background-color: #fff; /* Solid white background */
+  opacity: 1; /* Ensure full opacity */
+  box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  transition: right 0.3s ease;
+  z-index: 1500;
+}
+
+.mobileMenu.show {
+  right: 0;
+}
+
+.mobileMenu a {
+  font-size: 1.75rem;
+  color: #2d3748;
+  text-decoration: none;
+  margin: 1rem 0;
+}
+
+
 /* Main Content */
 .main {
   width: 100%;
   margin: 0 auto;
-  padding-top: 5rem;
+  padding-top: 0rem;
 }
 
 /* Section Styling */
 .sectionHeader {
   text-align: center;
+  /* margin-top: 5rem;; */
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.sectionGapHeader {
+  text-align: center;
+  margin-top: 5rem;
   margin-bottom: 3rem;
   position: relative;
 }
 
 .sectionHeader h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #2d3748;
+}
+
+.sectionGapHeader h2 {
   font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 0.75rem;
@@ -154,7 +238,8 @@
   margin-bottom: 3rem;
 }
 
-.primaryButton, .secondaryButton {
+.primaryButton,
+.secondaryButton {
   padding: 0.75rem 1.75rem;
   border-radius: 6px;
   font-weight: 600;
@@ -623,13 +708,18 @@
     flex-direction: column;
     gap: 3rem;
   }
-}
-
-@media (max-width: 480px) {
+  
+  /* Hide desktop navigation on small screens */
   .navigation {
     display: none;
   }
   
+  .mobileMenuIcon {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
   .heroTitle {
     font-size: 2.25rem;
   }
@@ -657,4 +747,37 @@
     text-align: center;
     gap: 1.5rem;
   }
+}
+
+/* Article Page Styles */
+.blogArticle {
+  max-width: 900px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.articleSubtitle {
+  font-size: 1.1rem;
+  color: #4a5568;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.articleContent {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #4a5568;
+  margin-top: 2rem;
+}
+
+.codeBlock {
+  background-color: #f7fafc;
+  padding: 1rem;
+  border-radius: 6px;
+  margin: 1rem 0;
+  overflow-x: auto;
 }
